@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnl7gmef5xqyt"]
+
+[ext_resource type="Texture2D" uid="uid://0n2cpwub5pb7" path="res://asteroidspaceship.png" id="1_abvd3"]
+
+[node name="lifebar" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("1_abvd3")

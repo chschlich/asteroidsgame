@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://dv0hbhv3dcwd4"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_jmj5g"]
+[ext_resource type="PackedScene" uid="uid://dx0xqebs88a71" path="res://character_body_2d.tscn" id="1_vjwux"]
+[ext_resource type="PackedScene" uid="uid://c77f3p4kllqsl" path="res://hud.tscn" id="2_1nl3w"]
+[ext_resource type="PackedScene" uid="uid://dnvgweb3g3t7y" path="res://explosioneffect.tscn" id="2_ijfni"]
+[ext_resource type="PackedScene" uid="uid://btnu3ckksg6ph" path="res://asteroid.tscn" id="3_0sxoj"]
+[ext_resource type="PackedScene" uid="uid://crrv4awkcy0qt" path="res://game_over_screen.tscn" id="3_r603t"]
+[ext_resource type="PackedScene" uid="uid://dydid1frqmo6y" path="res://player_spawn_area.tscn" id="6_jtghi"]
+[ext_resource type="AudioStream" uid="uid://cgfpgusestjym" path="res://Eladard Inside - Star Fox 2 Music Extended.mp3" id="7_q7scr"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7l36u"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1000, 1)
+spread = 0.0
+initial_velocity_min = -10.0
+initial_velocity_max = -10.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_jmj5g")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("2_1nl3w")]
+
+[node name="GameOverScreen" parent="UI" instance=ExtResource("3_r603t")]
+offset_left = -2.0
+offset_top = -4.0
+offset_right = -2.0
+offset_bottom = -4.0
+
+[node name="Player" parent="." instance=ExtResource("1_vjwux")]
+position = Vector2(945, 469)
+
+[node name="Lasers" type="Node" parent="."]
+
+[node name="Asteroids" type="Node" parent="."]
+
+[node name="Asteroid" parent="Asteroids" instance=ExtResource("3_0sxoj")]
+position = Vector2(1449, 108)
+
+[node name="Asteroid3" parent="Asteroids" instance=ExtResource("3_0sxoj")]
+position = Vector2(892, 938)
+
+[node name="PlayerSpawnPos" type="Node2D" parent="."]
+position = Vector2(956, 464)
+rotation = -1.57079
+
+[node name="PlayerSpawnArea" parent="PlayerSpawnPos" instance=ExtResource("6_jtghi")]
+position = Vector2(-2, 3)
+
+[node name="StarFieldBack" type="GPUParticles2D" parent="."]
+z_index = -100
+position = Vector2(2210, 491)
+scale = Vector2(3, 3)
+amount = 2000
+process_material = SubResource("ParticleProcessMaterial_7l36u")
+lifetime = 140.0
+preprocess = 280.0
+
+[node name="spawn_timer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_q7scr")
+autoplay = true
+parameters/looping = false
+
+[node name="echosplode" parent="." instance=ExtResource("2_ijfni")]
+
+[connection signal="timeout" from="spawn_timer" to="." method="_on_spawn_timer_timeout"]

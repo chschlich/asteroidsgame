@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2xr5rh337uiq"]
+
+[ext_resource type="Script" path="res://laser.gd" id="1_gyogc"]
+[ext_resource type="Texture2D" uid="uid://bviub2jaimghe" path="res://balllaser.png" id="2_mcv7e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sxv2m"]
+radius = 4.12311
+
+[sub_resource type="Gradient" id="Gradient_ss5o6"]
+colors = PackedColorArray(1, 0.683333, 0, 1, 1, 0.952667, 0.29, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tqd67"]
+gradient = SubResource("Gradient_ss5o6")
+
+[sub_resource type="Curve" id="Curve_50lcf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.384615), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1w1ma"]
+curve = SubResource("Curve_50lcf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1lskw"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_1w1ma")
+color_ramp = SubResource("GradientTexture1D_tqd67")
+
+[node name="laser" type="Area2D"]
+script = ExtResource("1_gyogc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_mcv7e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sxv2m")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, 5)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_1lskw")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

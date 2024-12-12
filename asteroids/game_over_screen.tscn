@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://crrv4awkcy0qt"]
+
+[ext_resource type="Script" path="res://game_over_screen.gd" id="1_3n7wt"]
+[ext_resource type="FontFile" uid="uid://coebmb0wjtv2b" path="res://Xolonium-Regular.ttf" id="2_4lh0w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ngrq2"]
+font = ExtResource("2_4lh0w")
+font_size = 48
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="GameOverScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3n7wt")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_font_sizes/font_size = 50
+text = "Game Over!"
+label_settings = SubResource("LabelSettings_ngrq2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 929.0
+offset_top = 627.0
+offset_right = 1001.0
+offset_bottom = 658.0
+text = "Restart?"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://c77f3p4kllqsl"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_pm8ki"]
+[ext_resource type="FontFile" uid="uid://coebmb0wjtv2b" path="res://Xolonium-Regular.ttf" id="2_nvjnc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fw02k"]
+font = ExtResource("2_nvjnc")
+font_size = 36
+font_color = Color(1, 0.901961, 0, 1)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 171.0
+offset_bottom = 53.0
+script = ExtResource("1_pm8ki")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 156.0
+offset_bottom = 50.0
+text = "SCORE: 0"
+label_settings = SubResource("LabelSettings_fw02k")
+
+[node name="Lives" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 46.0
+offset_right = 1088.0
+offset_bottom = 948.0
+scale = Vector2(0.02, 0.02)
